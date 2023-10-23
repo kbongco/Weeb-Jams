@@ -5,3 +5,5 @@ export const sendJikanData = (inputValue: string) => {
 export const getAnimeTheme = (id: any) => {
   return `https://api.jikan.moe/v4/anime/${id}/themes`
 }
+
+export const searchSongRegex = /\\ "(.*?)\\ "/;

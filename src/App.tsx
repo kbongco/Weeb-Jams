@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 import Input from './Components/Input'
 import './App.css'
@@ -34,8 +34,19 @@ function App() {
     });
   };
 
+  const getAnimeTheme = (animeId) => {
+    axios.get(`https://api.jikan.moe/v4/anime/${animeId}/themes`).then((response) => {
+      setAnimeThemes(response.data);
+      console.log(response.data);
+    }).catch((error) => {
+      console.error(error);
+    })
+  }
+
   const handleAnimeClick = (malId:any) => {
     setAnimeId(malId);
+    console.log(malId);
+    getAnimeTheme(malId);
   }
 
 
