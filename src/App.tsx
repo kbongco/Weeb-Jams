@@ -19,7 +19,6 @@ function App() {
   useEffect(() => {
     if (buttonPressed) {
     axios.get(sendJikanData(inputValue)).then((response) => {
-      console.log(response.data);
       setAnimeData(response.data);
       setButtonPressed(false); 
       const malIdAndTitles = animeData?.data?.map((anime:MalIDandTitles) => ({
@@ -50,7 +49,6 @@ function App() {
   const getAnimeTheme = (animeId) => {
     axios.get(`https://api.jikan.moe/v4/anime/${animeId}/themes`).then((response) => {
       setAnimeThemes(response.data);
-      console.log(response.data);
     }).catch((error) => {
       console.error(error);
     })
@@ -58,7 +56,6 @@ function App() {
 
   const handleAnimeClick = (malId:any) => {
     setAnimeId(malId);
-    console.log(malId);
     getAnimeTheme(malId);
   }
 
