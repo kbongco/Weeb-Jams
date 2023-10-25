@@ -7,3 +7,6 @@ export const getAnimeTheme = (id: any) => {
 }
 
 export const searchSongRegex = /\\ "(.*?)\\ "/;
+
+export const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+export const RESPONSE_TYPE = 'token';

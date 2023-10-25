@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Input from './Components/Input'
+import Login from './Screens/Login';
 import './App.css'
 import { sendJikanData, getAnimeTheme } from './constants';
 import { MalIDandTitles } from './interfaces/anime-interface';
@@ -14,6 +15,33 @@ function App() {
   const [animeId, setAnimeId] = useState(null);
   const [animeTheme, setAnimeThemes] = useState([]);
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    let localToken = window.localStorage.getItem("token");
+  
+    if (!localToken && hash) {
+      const tokenPart = hash
+        .substring(1)
+        .split("&")
+        .find((elem) => elem.startsWith("access_token"));
+  
+      if (tokenPart) {
+        const token = tokenPart.split("=")[1];
+        window.location.hash = "";
+        window.localStorage.setItem("token", token);
+        setToken(token);
+      }
+    } else if (localToken) {
+      setToken(localToken);
+    }
+  }, []);
+  
+  const logout = () => {
+    setToken("");
+    window.localStorage.removeItem("token");
+  };
 
 
   useEffect(() => {
@@ -46,7 +74,7 @@ function App() {
     setInputValue(newValue);
   };
 
-  const getAnimeTheme = (animeId) => {
+  const getAnimeTheme = (animeId:any) => {
     axios.get(`https://api.jikan.moe/v4/anime/${animeId}/themes`).then((response) => {
       setAnimeThemes(response.data);
     }).catch((error) => {
@@ -62,41 +90,42 @@ function App() {
 
   return (
     <>
+      {token ? (
       <div>
-        <p>Test</p>
-        <Input
-          label="Test"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-        <button onClick={getAnime}>Get Anime</button>
-        {
-        filteredAnime && filteredAnime.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Action</th>
+      <Input
+        label="Enter Anime title here"
+        value={inputValue}
+        onChange={handleInputChange}
+      />
+      <button onClick={getAnime}>Get Anime</button>
+      {
+      filteredAnime && filteredAnime.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredAnime.map((anime: any) => (
+              <tr key={anime.mal_id}>
+                <td>{anime.title_english}</td>
+                <td>
+                  <button onClick={() => handleAnimeClick(anime.mal_id)}>
+                    Select
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredAnime.map((anime: any) => (
-                <tr key={anime.mal_id}>
-                  <td>{anime.title_english}</td>
-                  <td>
-                    <button onClick={() => handleAnimeClick(anime.mal_id)}>
-                      Select
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <h1>No anime found</h1>
-        )
-      }
-    </div>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <h1>No anime found</h1>
+      )
+    }
+  </div>
+      ) : <Login/> }
     </>
   )
 }
