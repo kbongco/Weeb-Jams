@@ -18,7 +18,6 @@ export default function Login() {
         <p>Login using your spotify account and you can search an anime and find out if their OPs/EDs are on
           spotify
         </p>
-        {/* <button><a href='http://google.com/'/>Log in to Spotify</button> */}
         <a href={spotifyOAuthUrl} className="button is-medium is-blue">Login to Spotify</a>
       </section>
     </>

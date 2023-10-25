@@ -10,3 +10,5 @@ export const searchSongRegex = /\\ "(.*?)\\ "/;
 
 export const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 export const RESPONSE_TYPE = 'token';
+
+export const searchSpotify = "https://api.spotify.com/v1/search";
