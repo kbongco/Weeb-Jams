@@ -74,6 +74,11 @@ function App() {
 
   const handleInputChange = (newValue: string) => {
     setInputValue(newValue);
+    setAnimeData({});
+    setFilteredAnime([]);
+    setAnimeId(null);
+    setAnimeThemes([]);
+    setSelectedAnime(false);
   };
 
   const getAnimeTheme = (animeId: any) => {
@@ -90,6 +95,7 @@ function App() {
     getAnimeTheme(malId);
     setSelectedAnime(true);
   }
+
 
   console.log(animeTheme)
 
@@ -132,7 +138,7 @@ function App() {
               <h1>No anime found</h1>
             )
           }
-          {selectedAnime ? <SongDetails animeTheme={animeTheme} />: ''}
+          {selectedAnime ? <SongDetails animeTheme={animeTheme} /> : ''}
         </div>
       ) : <Login />}
     </>
