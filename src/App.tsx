@@ -142,9 +142,9 @@ function App() {
           {selectedAnime ? <SongDetails animeTheme={animeTheme} /> : ''}
         </div>
       ) : <Login />}
-      <div className='is-fullheight-100vh'>
-        {/* <Footer /> */}
-      </div>
+      {/* <div className='is-fullheight-100vh'>
+        <Footer />
+      </div> */}
     </>
   )
 }
