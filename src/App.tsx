@@ -7,6 +7,7 @@ import SongDetails from './Components/SongDetails';
 import './App.css'
 import { sendJikanData, getAnimeTheme, searchSongRegex } from './constants';
 import { MalIDandTitles } from './interfaces/anime-interface';
+import Footer from './Components/Footer';
 
 const ChibiTableContainer = styled.div`
 margin-top: 16px;
@@ -141,6 +142,9 @@ function App() {
           {selectedAnime ? <SongDetails animeTheme={animeTheme} /> : ''}
         </div>
       ) : <Login />}
+      {/* <div className='is-fullheight-100vh'>
+        <Footer />
+      </div> */}
     </>
   )
 }

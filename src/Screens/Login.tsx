@@ -1,25 +1,57 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+
+const HeaderContainer = styled.div`
+display: flex;
+justify-content: center;
+gap: 16px
+`
+
+const IconContainer = styled.div`
+display: flex;
+align-items: center;
+color: black;
+`
+
+const InformationSection = styled.section`
+padding-left: 32px;
+padding-right: 32px;
+`
+
+const InformationParaGraph = styled.p`
+text-align: left;
+`
+
 export default function Login() {
+
   const clientId = import.meta.env.VITE_REACT_APP_SPOTIFY_CLIENT_ID;
   const redirectURI = import.meta.env.VITE_REACT_APP_REDIRECT_URI;
   const spotifyOAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&scope=user-read-private&response_type=token`;
 
+  const handleButtonClick = () => {
+    window.location.href = spotifyOAuthUrl;
+  }
+
   return (
     <>
-      <h1 className="is-size-1">WeebJams</h1>
-      <figure className="image is-32x32">
-      <img width='240px' src="../src/assets/Screen Shot 2023-10-24 at 12.51.29 PM.png" alt="WeebJams" />
-</figure>
-      <section>
-        <p>Ever watch an anime to find that the OP or the ED is great and you want to find out if its on 
-          spotify so you can add it to a playlist? Want to save yourself the disappointment and find out 
-          before you go into spotify and disappoint yourself? 
-          This is where Weeb Jams come in! 
-        </p>
-        <p>Login using your spotify account and you can search an anime and find out if their OPs/EDs are on
-          spotify
-        </p>
-        <a href={spotifyOAuthUrl} className="button is-medium is-blue">Login to Spotify</a>
-      </section>
+      <div className='columns'>
+        <HeaderContainer>
+          <IconContainer>
+            <FontAwesomeIcon icon={faMusic} size='4x' />
+          </IconContainer>
+          <h1 className="is-size-4">WeebJams</h1>
+        </HeaderContainer>
+      </div>
+      <figure className="image is-5by4">
+        <img width='318px' src="../src/assets/Screen Shot 2023-10-24 at 12.51.29 PM.png" alt="WeebJams" />
+      </figure>
+      <InformationSection>
+        <InformationParaGraph>A responsive web application that utilizes the Jikan API and the Spotify APi to search for Anime openings and endings and find out if they are available for streaming and listening.
+        </InformationParaGraph>
+      </InformationSection>
+      <button className="button is-large is-rounded" onClick={handleButtonClick}> Login with Spotify
+      </button>
     </>
   )
 }
