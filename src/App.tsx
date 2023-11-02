@@ -15,6 +15,7 @@ import AnimeResults from './Components/AnimeResults';
 const SearchButtonContainer = styled.div`
 display: flex;
 justify-content: end;
+margin-right: 32px;
 `
 
 
@@ -116,14 +117,14 @@ function App() {
           />
           <SearchButtonContainer>
             <button onClick={getAnime}>Get Anime</button>
-            </SearchButtonContainer>
+          </SearchButtonContainer>
             
           {
             // Figure out how to break this to its own component
             filteredAnime && filteredAnime.length > 0 ? (
             <AnimeResults filteredAnime={filteredAnime} handleAnimeClick={handleAnimeClick} />
             ) : (
-              <p>There currently is no anime matching what you searched for. If you know the anime exists try searching it with the English Name</p>
+              <p style={{textAlign:'left'}}>There currently is no anime matching what you searched for. If you know the anime exists try searching it with the English Name</p>
             )
           }
           {selectedAnime ? <SongDetails animeTheme={animeTheme} /> : ''}

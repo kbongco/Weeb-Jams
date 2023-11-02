@@ -1,33 +1,48 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Table, TableHead, TableRow, TableCell, TableBody, TablePagination, Button } from '@mui/material';
 
-const ChibiTableContainer = styled.div`
-margin-top: 16px;
-`
+const AnimeTable = ({ filteredAnime, handleAnimeClick }:any) => {
+  const rowsPerPage = 5; // Number of entries per page
+  const [page, setPage] = React.useState(0);
 
-export default function AnimeResults({ filteredAnime, handleAnimeClick }: any) {
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
   return (
-    <ChibiTableContainer>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredAnime.map((anime: any) => (
-          <tr key={anime.mal_id}>
-            <td>{anime.title_english}</td>
-            <td>
-              <button onClick={() => handleAnimeClick(anime.mal_id)}>
-                Select
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </ChibiTableContainer>
-  )
-}
+    <div>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Title</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredAnime.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((anime:any) => (
+            <TableRow key={anime.mal_id}>
+              <TableCell>{anime.title_english}</TableCell>
+              <TableCell>
+                <Button variant="contained" color="primary" onClick={() => handleAnimeClick(anime.mal_id)}>
+                  Select
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
+      {filteredAnime.length > rowsPerPage && (
+        <TablePagination
+          component="div"
+          count={filteredAnime.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+        />
+      )}
+    </div>
+  );
+};
+
+export default AnimeTable;
