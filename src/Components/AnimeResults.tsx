@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableHead, TableRow, TableCell, TableBody, TablePagination, Button } from '@mui/material';
 
 const AnimeTable = ({ filteredAnime, handleAnimeClick }:any) => {
   const rowsPerPage = 5; // Number of entries per page
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event:Event, newPage:any) => {
     setPage(newPage);
   };
 
@@ -14,14 +14,14 @@ const AnimeTable = ({ filteredAnime, handleAnimeClick }:any) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell>Action</TableCell>
+            <TableCell sx={{ fontSize: '1.2rem', color: 'white' }}>Title</TableCell>
+            <TableCell sx={{ fontSize: '1.2rem', color: 'white' }}>Search</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {filteredAnime.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((anime:any) => (
             <TableRow key={anime.mal_id}>
-              <TableCell>{anime.title_english}</TableCell>
+              <TableCell sx={{ fontSize: '1.2rem', color: 'white' }}>{anime.title_english}</TableCell>
               <TableCell>
                 <Button variant="contained" color="primary" onClick={() => handleAnimeClick(anime.mal_id)}>
                   Select
@@ -32,7 +32,7 @@ const AnimeTable = ({ filteredAnime, handleAnimeClick }:any) => {
         </TableBody>
       </Table>
 
-      {filteredAnime.length > rowsPerPage && (
+      {/* {filteredAnime.length > rowsPerPage && (
         <TablePagination
           component="div"
           count={filteredAnime.length}
@@ -40,7 +40,7 @@ const AnimeTable = ({ filteredAnime, handleAnimeClick }:any) => {
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
         />
-      )}
+      )} */}
     </div>
   );
 };

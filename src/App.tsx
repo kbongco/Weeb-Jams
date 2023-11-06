@@ -116,7 +116,7 @@ function App() {
             onChange={handleInputChange}
           />
           <SearchButtonContainer>
-            <button onClick={getAnime}>Get Anime</button>
+            <button id='searchanime' onClick={getAnime}>Get Anime</button>
           </SearchButtonContainer>
             
           {
