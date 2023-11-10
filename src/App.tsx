@@ -5,9 +5,8 @@ import Input from './Components/Input'
 import Login from './Screens/Login';
 import SongDetails from './Components/SongDetails';
 import './App.css'
-import { sendJikanData, getAnimeTheme, searchSongRegex } from './constants';
+import { sendJikanData } from './constants';
 import { MalIDandTitles } from './interfaces/anime-interface';
-import Footer from './Components/Footer';
 import AnimeResults from './Components/AnimeResults';
 
 
@@ -23,7 +22,7 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [animeData, setAnimeData] = useState<any>({});
   const [filteredAnime, setFilteredAnime] = useState<any>([]);
-  const [animeId, setAnimeId] = useState(null);
+  const [animeId, setAnimeId] = useState < number | null>(null);
   const [animeTheme, setAnimeThemes] = useState<any>([]);
   const [buttonPressed, setButtonPressed] = useState(false);
   const [selectedAnime, setSelectedAnime] = useState(false);
@@ -87,16 +86,17 @@ function App() {
     setSelectedAnime(false);
   };
 
-  const getAnimeTheme = (animeId: any) => {
+  const getAnimeTheme = (animeId: number) => {
     axios.get(`https://api.jikan.moe/v4/anime/${animeId}/themes`).then((response) => {
       setAnimeThemes(response.data);
       console.log(response.data);
+      console.log(animeId);
     }).catch((error) => {
       console.error(error);
     })
   }
 
-  const handleAnimeClick = (malId: any) => {
+  const handleAnimeClick = (malId: number) => {
     setAnimeId(malId);
     getAnimeTheme(malId);
     setSelectedAnime(true);

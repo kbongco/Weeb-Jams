@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import Select from './Select';
 import axios from 'axios';
 import { searchSpotify, songTypeOptions } from '../constants'
@@ -6,13 +6,14 @@ import { searchSpotify, songTypeOptions } from '../constants'
 
 
 export default function SongDetails({ animeTheme }: any) {
+  console.log(animeTheme);
 
   console.log(animeTheme?.data?.openings)
   const accessToken = import.meta.env.VITE_REACT_APP_ACCESS_TOKEN;
 
   function createSongMap(songs: any) {
     return new Map(
-      songs?.map((theme: any) => {
+      songs?.map((theme: string) => {
         const match = theme.match(/"([^"]+)" by ([^(]+)\(/);
         if (match) {
           const title = match[1];
@@ -66,11 +67,12 @@ export default function SongDetails({ animeTheme }: any) {
   }, [selectedAnimeTheme, selectedArtist]);
 
 
-  const handleSelectChange = (e: any) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowSongs(e.target.value);
   }
 
   const findExactSong = songResults?.items?.find((result: any) => {
+    console.log(result);
     return (
       result.name === selectedAnimeTheme
     )
