@@ -27,6 +27,7 @@ export default function SongDetails({ animeTheme }: any) {
   const openingMap: Map<any, any> = createSongMap(animeTheme?.data?.openings);
   const closingMap: Map<any, any> = createSongMap(animeTheme?.data?.endings);
 
+  console.log(openingMap);
 
 
 
