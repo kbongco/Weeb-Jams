@@ -78,3 +78,8 @@ export interface AnimeTheme {
   endings: string[];
   openings: string[];
 }
+
+export interface FilteredAnime {
+  mal_id: string | number;
+  title_english: string;
+}

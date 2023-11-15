@@ -6,7 +6,7 @@ import Login from './Screens/Login';
 import SongDetails from './Components/SongDetails';
 import './App.css'
 import { sendJikanData, getAnimeTheme, searchSongRegex } from './constants';
-import { MalIDandTitles, AnimeData, AnimeTheme } from './interfaces/anime-interface';
+import { MalIDandTitles, AnimeData, AnimeTheme, FilteredAnime } from './interfaces/anime-interface';
 import Footer from './Components/Footer';
 
 const ChibiTableContainer = styled.div`
@@ -17,7 +17,7 @@ margin-top: 16px;
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [animeData, setAnimeData] = useState<AnimeData | {}>({});
-  const [filteredAnime, setFilteredAnime] = useState<any>([]);
+  const [filteredAnime, setFilteredAnime] = useState<FilteredAnime | []>([]);
   const [animeId, setAnimeId] = useState(null);
   const [animeTheme, setAnimeThemes] = useState<AnimeTheme | []>([]);
   const [buttonPressed, setButtonPressed] = useState(false);
@@ -100,6 +100,7 @@ function App() {
 
 
   console.log(animeTheme)
+  console.log(filteredAnime);
 
 
   return (
@@ -113,7 +114,7 @@ function App() {
           />
           <button onClick={getAnime}>Get Anime</button>
           {
-            filteredAnime && filteredAnime.length > 0 ? (
+            filteredAnime && filteredAnime?.length > 0 ? (
               <ChibiTableContainer>
                 <table>
                   <thead>
@@ -123,7 +124,7 @@ function App() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredAnime.map((anime: any) => (
+                    {filteredAnime?.map((anime: any) => (
                       <tr key={anime.mal_id}>
                         <td>{anime.title_english}</td>
                         <td>
