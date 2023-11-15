@@ -6,7 +6,7 @@ import Login from './Screens/Login';
 import SongDetails from './Components/SongDetails';
 import './App.css'
 import { sendJikanData, getAnimeTheme, searchSongRegex } from './constants';
-import { MalIDandTitles } from './interfaces/anime-interface';
+import { MalIDandTitles, AnimeData, AnimeTheme } from './interfaces/anime-interface';
 import Footer from './Components/Footer';
 
 const ChibiTableContainer = styled.div`
@@ -16,10 +16,10 @@ margin-top: 16px;
 
 function App() {
   const [inputValue, setInputValue] = useState('');
-  const [animeData, setAnimeData] = useState<any>({});
+  const [animeData, setAnimeData] = useState<AnimeData | {}>({});
   const [filteredAnime, setFilteredAnime] = useState<any>([]);
   const [animeId, setAnimeId] = useState(null);
-  const [animeTheme, setAnimeThemes] = useState<any>([]);
+  const [animeTheme, setAnimeThemes] = useState<AnimeTheme | []>([]);
   const [buttonPressed, setButtonPressed] = useState(false);
   const [selectedAnime, setSelectedAnime] = useState(false);
   const [token, setToken] = useState("");
@@ -51,6 +51,7 @@ function App() {
     if (buttonPressed) {
       axios.get(sendJikanData(inputValue)).then((response) => {
         setAnimeData(response.data);
+        console.log(animeData);
         setButtonPressed(false);
         const malIdAndTitles = animeData?.data?.map((anime: MalIDandTitles) => ({
           mal_id: anime.mal_id,
@@ -142,9 +143,6 @@ function App() {
           {selectedAnime ? <SongDetails animeTheme={animeTheme} /> : ''}
         </div>
       ) : <Login />}
-      {/* <div className='is-fullheight-100vh'>
-        <Footer />
-      </div> */}
     </>
   )
 }
