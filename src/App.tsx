@@ -8,9 +8,14 @@ import './App.css'
 import { sendJikanData, getAnimeTheme, searchSongRegex } from './constants';
 import { MalIDandTitles } from './interfaces/anime-interface';
 import Footer from './Components/Footer';
+import AnimeResults from './Components/AnimeResults';
 
-const ChibiTableContainer = styled.div`
-margin-top: 16px;
+
+
+const SearchButtonContainer = styled.div`
+display: flex;
+justify-content: end;
+margin-right: 32px;
 `
 
 
@@ -110,41 +115,21 @@ function App() {
             value={inputValue}
             onChange={handleInputChange}
           />
-          <button onClick={getAnime}>Get Anime</button>
+          <SearchButtonContainer>
+            <button id='searchanime' onClick={getAnime}>Get Anime</button>
+          </SearchButtonContainer>
+            
           {
+            // Figure out how to break this to its own component
             filteredAnime && filteredAnime.length > 0 ? (
-              <ChibiTableContainer>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredAnime.map((anime: any) => (
-                      <tr key={anime.mal_id}>
-                        <td>{anime.title_english}</td>
-                        <td>
-                          <button onClick={() => handleAnimeClick(anime.mal_id)}>
-                            Select
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </ChibiTableContainer>
+            <AnimeResults filteredAnime={filteredAnime} handleAnimeClick={handleAnimeClick} />
             ) : (
-              <h1>No anime found</h1>
+              <p style={{textAlign:'left'}}>There currently is no anime matching what you searched for. If you know the anime exists try searching it with the English Name</p>
             )
           }
           {selectedAnime ? <SongDetails animeTheme={animeTheme} /> : ''}
         </div>
       ) : <Login />}
-      {/* <div className='is-fullheight-100vh'>
-        <Footer />
-      </div> */}
     </>
   )
 }

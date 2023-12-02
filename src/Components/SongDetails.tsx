@@ -63,6 +63,7 @@ export default function SongDetails({ animeTheme }: any) {
 
   useEffect(() => {
     search(selectedAnimeTheme, selectedArtist);
+    console.log(selectedAnimeTheme);
   }, [selectedAnimeTheme, selectedArtist]);
 
 

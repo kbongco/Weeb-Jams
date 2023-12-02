@@ -17,6 +17,7 @@ const ChibiInputField = styled.input`
 padding: 16px;
 border: 1px solid black;
 border-radius: 10px;
+width: 257px;
 `
 
 export default function Input({ label, value, onChange }: InputProps) {
